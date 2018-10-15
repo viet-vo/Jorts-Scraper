@@ -4,9 +4,8 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 // TODO comment describing scraping tools
 // ...
-const axios = require("axios");
-const cheerio = require("cheerio");
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({
@@ -20,6 +19,6 @@ mongoose.connect("mongodb://localhost/jortScraps", {
 
 require("./routes/index");
 
-app.listen(PORT, function() {
-    console.log("App running https://localhost:3000 ");
+app.listen(PORT, function () {
+    console.log("App running on: http://localhost:" + PORT);
 });
