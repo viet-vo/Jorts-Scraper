@@ -48,4 +48,4 @@ $.getJSON("/Jorts", function(data) {
     $("#titleinput").val("");
     $("#bodyinput").val("");
   });
-  
+ 

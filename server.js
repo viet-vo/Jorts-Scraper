@@ -7,9 +7,8 @@ const link = "https://www.amazon.com/s/ref=nb_sb_ss_i_1_12?url=search-alias%3Dap
 const PORT = 3000;
 // TODO comment describing scraping tools
 // ...
-const axios = require("axios");
-const cheerio = require("cheerio");
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({
@@ -105,4 +104,3 @@ app.get("/jorts/:id", function (req, res) {
 
 app.listen(PORT, function () {
     console.log("App running http://localhost:" + PORT);
-});
