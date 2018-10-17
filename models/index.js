@@ -1,4 +1,4 @@
 module.exports = {
     Jorts: require("./Jorts"),
-    Notes: require("./Notes")
+    Notes: require("./Note")
 };
