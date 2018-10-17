@@ -7,8 +7,9 @@ const axios = require("axios");
 
 // app.get("/scrape", (req, res) => {
 axios.get(link).then(response => {
-    const $ = cheerio.load(html);
-    
+    const $ = cheerio.load(response.data);
+    let results = [];
+    // let result = {};
     // $("img.s-access-image").each((i, element) => {
     //     const image = $(element).attr("src");
     //     results.push({
@@ -22,15 +23,15 @@ axios.get(link).then(response => {
     //     })
     // });
     $("div.s-item-container").each((i, element) => {
-        let result = {};
-        result.image = $(this).children("div.a-row").children().children().children().attr("src");
-        result.text = $(this).children("div.a-spacing-none").children().children().attr("title");
-        
+        var result = {};
+        result.image = $(element).children("div.a-row").children().children().children().attr("src");
+        result.text = $(element).children("div.a-spacing-none").children().children().attr("title");
+        results.push(result);
     })
     // for (let i = 0; i<=result.length; i++) {
     //     if(result[i].image === undefined || result[].text === undefined) {
     //         result.splice(i)
     //     }
     // }
-    console.log(result);
+    console.log(results);
 });
