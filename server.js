@@ -22,13 +22,12 @@ var databaseUri = 'mongodb://localhost/JortsDB'
 var uri = "mongodb://<dbuser>:<dbpassword>@ds133152.mlab.com:33152/heroku_mjx189rn"
 if (process.env.MONGODB_URI) {
     mongoose.connect(uri, {
-        // useNewUrlParser: true
+        useNewUrlParser: true
     }, console.log("connected through mLab"))
 } else {
     mongoose.connect(databaseUri, {
-            useNewUrlParser: true
-        },
-        console.log("connected locally"))
+        useNewUrlParser: true
+    }, console.log("connected locally"))
 }
 
 
