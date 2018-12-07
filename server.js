@@ -20,15 +20,15 @@ app.use(express.static("public"));
 
 var databaseUri = 'mongodb://localhost/JortsDB'
 var uri = "mongodb://heroku_mjx189rn:Thissuck312@ds133152.mlab.com:33152/heroku_mjx189rn"
-// if (process.env.MONGODB_URI) {
+if (process.env.MONGODB_URI) {
     mongoose.connect(uri, {
         useNewUrlParser: true
     }, console.log("connected through mLab"))
-// } else {
-//     mongoose.connect(databaseUri, {
-//         useNewUrlParser: true
-//     }, console.log("connected locally"))
-// }
+} else {
+    mongoose.connect(databaseUri, {
+        useNewUrlParser: true
+    }, console.log("connected locally"))
+}
 
 
 const link = "https://www.amazon.com/s/ref=nb_sb_ss_i_1_12?url=search-alias%3Daps&field-keywords=mens+jean+shorts&sprefix=mens+jean+sh%2Caps%2C219&crid=3NVWVJSYHNA2M";
