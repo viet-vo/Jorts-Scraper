@@ -21,6 +21,7 @@ app.use(express.static("public"));
 var databaseUri = 'mongodb://localhost/JortsDB'
 
 if (process.env.MONGODB_URI) {
+    console.log("trying to connect through mLab")
     mongoose.connect(process.env.MONGODB_URI, { 
         // useNewUrlParser: true
     },console.log("connected through mLab"))
