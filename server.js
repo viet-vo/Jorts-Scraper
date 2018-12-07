@@ -19,18 +19,18 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 
 var databaseUri = 'mongodb://localhost/JortsDB'
-
+var uri = "mongodb://<dbuser>:<dbpassword>@ds133152.mlab.com:33152/heroku_mjx189rn"
 if (process.env.MONGODB_URI) {
-    console.log("trying to connect through mLab")
-    mongoose.connect(process.env.MONGODB_URI, { 
+    mongoose.connect(uri, {
         // useNewUrlParser: true
-    },console.log("connected through mLab"))
+    }, console.log("connected through mLab"))
 } else {
-    mongoose.connect(databaseUri, { 
-        useNewUrlParser: true},
+    mongoose.connect(databaseUri, {
+            useNewUrlParser: true
+        },
         console.log("connected locally"))
 }
-    
+
 
 const link = "https://www.amazon.com/s/ref=nb_sb_ss_i_1_12?url=search-alias%3Daps&field-keywords=mens+jean+shorts&sprefix=mens+jean+sh%2Caps%2C219&crid=3NVWVJSYHNA2M";
 app.get("/scrape", function (req, res) {
@@ -54,7 +54,7 @@ app.get("/scrape", function (req, res) {
                 });
         });
 
-        res.send("Scrape Complete");
+        res.send("Scrape Complete").then();
     });
 });
 
@@ -100,13 +100,12 @@ app.post("/Jorts/:id", function (req, res) {
         });
 });
 
-app.delete("/clearall", function(req, res) {
-    db.Jorts.remove({}, function(error, response) {
+app.delete("/clearall", function (req, res) {
+    db.Jorts.remove({}, function (error, response) {
         if (error) {
             console.log(error);
             res.send(error);
-        }
-        else {
+        } else {
             console.log(response);
             res.send("database reset");
         }
@@ -114,5 +113,5 @@ app.delete("/clearall", function(req, res) {
 });
 
 app.listen(PORT, function () {
-    console.log("App running on http://localhost:" + PORT );
+    console.log("App running on http://localhost:" + PORT);
 });
