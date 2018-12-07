@@ -10,30 +10,12 @@ const axios = require("axios");
 axios.get(link).then(response => {
     const $ = cheerio.load(response.data);
     let results = [];
-    // let result = {};
-    // $("img.s-access-image").each((i, element) => {
-    //     const image = $(element).attr("src");
-    //     results.push({
-    //         image: image
-    //     });
-    // });
-    // $("h2.a-size-small").each((i, element) => {
-    //     const title = $(element).text();
-    //     results.push({
-    //         title: title
-    //     })
-    // });
     $("div.s-item-container").each((i, element) => {
         var result = {};
         result.image = $(element).children("div.a-row").children().children().children().attr("src");
         result.text = $(element).children("div.a-spacing-none").children().children().attr("title");
         results.push(result);
     })
-    // for (let i = 0; i<=result.length; i++) {
-    //     if(result[i].image === undefined || result[].text === undefined) {
-    //         result.splice(i)
-    //     }
-    // }
     console.log(results);
 });
 
