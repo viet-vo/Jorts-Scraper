@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 
 var databaseUri = 'mongodb://localhost/JortsDB'
-var uri = "mongodb://<dbuser>:<dbpassword>@ds133152.mlab.com:33152/heroku_mjx189rn"
+var uri = "mongodb://heroku_mjx189rn:Thissuck312@ds133152.mlab.com:33152/heroku_mjx189rn"
 // if (process.env.MONGODB_URI) {
     mongoose.connect(uri, {
         useNewUrlParser: true
