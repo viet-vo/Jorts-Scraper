@@ -18,9 +18,18 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost/JortsDB", {
-    useNewUrlParser: true
-});
+var databaseUri = 'mongodb://localhost/JortsDB'
+
+if (process.env.MONGODB_URI) {
+    mongoose.connect(process.env.MONGODB_URI, { 
+        // useNewUrlParser: true
+    },console.log("connected through mLab"))
+} else {
+    mongoose.connect(databaseUri, { 
+        useNewUrlParser: true},
+        console.log("connected locally"))
+}
+    
 
 const link = "https://www.amazon.com/s/ref=nb_sb_ss_i_1_12?url=search-alias%3Daps&field-keywords=mens+jean+shorts&sprefix=mens+jean+sh%2Caps%2C219&crid=3NVWVJSYHNA2M";
 app.get("/scrape", function (req, res) {
