@@ -74,7 +74,7 @@ app.get("/Jorts/:id", function (req, res) {
 app.post("/Jorts/:id", function (req, res) {
     db.Note.create(req.body)
         .then(function (dbNote) {
-            return db.Article.findOneAndUpdate({
+            return db.Jorts.findOneAndUpdate({
                 _id: req.params.id
             }, {
                 note: dbNote._id
@@ -88,6 +88,19 @@ app.post("/Jorts/:id", function (req, res) {
         .catch(function (err) {
             res.json(err);
         });
+});
+
+app.delete("/clearall", function(req, res) {
+    db.Jorts.remove({}, function(error, response) {
+        if (error) {
+            console.log(error);
+            res.send(error);
+        }
+        else {
+            console.log(response);
+            res.send("database reset");
+        }
+    });
 });
 
 app.listen(PORT, function () {

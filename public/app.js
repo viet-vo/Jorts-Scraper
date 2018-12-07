@@ -1,4 +1,4 @@
-$.getJSON("/Jorts", function(data) {
+$.getJSON("/jorts", function(data) {
     console.log(data)
     for (var i = 0; i < data.length; i++) {
       $("#jorts").append("<p data-id='" + data[i]._id + "'>" + 
@@ -20,7 +20,7 @@ $.getJSON("/Jorts", function(data) {
         $("#notes").append("<h2>" + data.text + "</h2>");
         $("#notes").append("<input id='titleinput' name='title' >");
         $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-        $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+        $("#notes").append("<button data-id='" + data._id + "'id='savenote'>Save Note</button>");
   
         if (data.note) {
           $("#titleinput").val(data.note.title);
@@ -34,7 +34,7 @@ $.getJSON("/Jorts", function(data) {
   
     $.ajax({
       method: "POST",
-      url: "/articles/" + thisId,
+      url: "/Jorts/" + thisId,
       data: {
         title: $("#titleinput").val(),
         body: $("#bodyinput").val()
@@ -49,3 +49,13 @@ $.getJSON("/Jorts", function(data) {
     $("#bodyinput").val("");
   });
  
+  $("#clear-all").on("click", function() {
+    $.ajax({
+      type: "DELETE",
+      dataType: "json",
+      url: "/clearall",
+      success: function(response) {
+        $("#results").empty();
+      }
+    });
+  });
