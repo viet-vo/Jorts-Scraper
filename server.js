@@ -19,7 +19,8 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 
 var databaseUri = 'mongodb://localhost/JortsDB'
-var uri = "mongodb://heroku_mjx189rn:Thissuck312@ds133152.mlab.com:33152/heroku_mjx189rn"
+var uri = "mongodb://heroku:jortskey1@ds119085.mlab.com:19085/signindb"
+
 if (process.env.MONGODB_URI) {
     mongoose.connect(uri, {
         useNewUrlParser: true
@@ -31,19 +32,19 @@ if (process.env.MONGODB_URI) {
 }
 
 
-const link = "https://www.amazon.com/s/ref=nb_sb_ss_i_1_12?url=search-alias%3Daps&field-keywords=mens+jean+shorts&sprefix=mens+jean+sh%2Caps%2C219&crid=3NVWVJSYHNA2M";
+const link = "https://www.amazon.com/Mens-Denim-Shorts/b?ie=UTF8&node=2476501011";
 app.get("/scrape", function (req, res) {
 
     axios.get(link).then(function (response) {
 
         var $ = cheerio.load(response.data);
 
-        $("div.s-item-container").each(function (i, element) {
+        $("li.s-result-item").each(function (i, element) {
             var result = {};
-
-            result.image = $(element).children("div.a-row").children().children().children().attr("src");
-            result.text = $(element).children("div.a-spacing-none").children().children().attr("title");
-
+            
+            result.image = $(element).children().children().children().children().children().children().children().children().attr("src");
+            result.text = $(element).children().children(".a-row.a-spacing-none").children().children().children("h2").text()
+            console.log(result)
             db.Jorts.create(result)
                 .then(function (JortsList) {
                     console.log(JortsList);
@@ -53,7 +54,7 @@ app.get("/scrape", function (req, res) {
                 });
         });
 
-        res.send("Scrape Complete").then();
+        res.send("Scrape Complete");
     });
 });
 
