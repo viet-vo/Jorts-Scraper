@@ -44,7 +44,6 @@ app.get("/scrape", function (req, res) {
             
             result.image = $(element).children().children().children().children().children().children().children().children().attr("src");
             result.text = $(element).children().children(".a-row.a-spacing-none").children().children().children("h2").text()
-            console.log(result)
             db.Jorts.create(result)
                 .then(function (JortsList) {
                     console.log(JortsList);
@@ -82,7 +81,7 @@ app.get("/Jorts/:id", function (req, res) {
 });
 
 app.post("/Jorts/:id", function (req, res) {
-    db.Note.create(req.body)
+    db.Notes.create(req.body)
         .then(function (dbNote) {
             return db.Jorts.findOneAndUpdate({
                 _id: req.params.id
