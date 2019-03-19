@@ -41,7 +41,7 @@ app.get("/scrape", function (req, res) {
 
         $("li.s-result-item").each(function (i, element) {
             var result = {};
-            
+
             result.image = $(element).children().children().children().children().children().children().children().children().attr("src");
             result.text = $(element).children().children(".a-row.a-spacing-none").children().children().children("h2").text()
             db.Jorts.create(result)
@@ -53,7 +53,13 @@ app.get("/scrape", function (req, res) {
                 });
         });
 
-        res.send("Scrape Complete");
+        res.send("Scrape Complete")
+        .then(
+            setTimeout( 
+            function() {
+                res.redirect('/')
+            }, 1000))
+        
     });
 });
 
@@ -69,8 +75,8 @@ app.get("/Jorts", function (req, res) {
 
 app.get("/Jorts/:id", function (req, res) {
     db.Jorts.findOne({
-            _id: req.params.id
-        })
+        _id: req.params.id
+    })
         .populate("note")
         .then(function (JortsList) {
             res.json(JortsList);
@@ -86,10 +92,10 @@ app.post("/Jorts/:id", function (req, res) {
             return db.Jorts.findOneAndUpdate({
                 _id: req.params.id
             }, {
-                note: dbNote._id
-            }, {
-                new: true
-            });
+                    note: dbNote._id
+                }, {
+                    new: true
+                });
         })
         .then(function (JortsList) {
             res.json(JortsList);
